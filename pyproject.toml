@@ -1,0 +1,17 @@
+[project]
+name = "optifuse"
+version = "0.1.0"
+description = "An all-in-one frontend optimization tool"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fonttools>=4",
+    "pillow>=11",
+    "scour>=0.38",
+    "brotli>=1",
+    "pypng>=0",
+    "piexif>=1",
+]
+
+[project.scripts]
+optifuse = "optifuse.main:main"
