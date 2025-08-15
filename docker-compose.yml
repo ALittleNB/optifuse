@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  optifuse:
+    build: .
+    volumes:
+      # 挂载当前目录到容器的/input目录
+      - .:/input:ro
+      # 挂载当前目录到容器的/output目录，用于输出优化后的文件
+      - .:/output
+    working_dir: /output
+    # 可以通过环境变量覆盖默认行为
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 默认显示帮助信息，可以通过docker-compose run覆盖
+    command: ["--help"]
+    
+  # 开发环境服务，包含代码挂载
+  optifuse-dev:
+    build: .
+    volumes:
+      - .:/app
+      - .:/output
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+    command: ["uv", "run", "--no-project", "-q", "python", "-m", "optifuse.main", "--help"]
